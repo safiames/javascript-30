@@ -64,11 +64,26 @@
         // stop the function from running
         if (!audio) return;
 
-        //rewind to the beginning
+        // rewind to the beginning
         audio.currentTime = 0;
         audio.play();
-        console.log(key);
+
+        // add the borders to the notes when activated
+        key.classList.add("playing");
       });
+
+      function removeTransition(e) {
+        // skip if not transform
+        if (e.propertyName !== "transform") return;
+
+        // remove the borders after done playing
+        this.classList.remove("playing");
+      }
+
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
     </script>
   </body>
 </html>
